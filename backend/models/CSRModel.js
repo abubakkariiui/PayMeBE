@@ -44,6 +44,6 @@ EmployeSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-const Employe = mongoose.model("CSR", EmployeSchema);
+const Employe = mongoose.model("Employee", EmployeSchema);
 
 export default Employe;

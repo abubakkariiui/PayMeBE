@@ -15,13 +15,13 @@ const authAgent = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
       phone: user.phone,
       address: user.address,
       city: user.city,
       postalCode: user.postalCode,
       cnic: user.cnic,
       pic: user.pic,
+      amount: user.amount,
       token: generateToken(user._id),
     });
   } else {
@@ -66,7 +66,6 @@ const registerAgent = asyncHandler(async (req, res) => {
       cnic: user.cnic,
       city: user.city,
       postalCode: user.postalCode,
-      isAdmin: user.isAdmin,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -109,7 +108,6 @@ const updateAgentProfile = asyncHandler(async (req, res) => {
       city: updatedUser.city,
       amount:updatedUser.amount,
       postalCode: updatedUser.postalCode,
-      isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     });
   } else {

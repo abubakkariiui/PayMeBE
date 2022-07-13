@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoutes.js";
 import contactRoutes from './routes/contactRoutes.js'
 import employeRoutes from './routes/employeRoutes.js'
 import historyRoutes from './routes/historyRoutes.js'
+import csr from './routes/csr.js'
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use("/api/agent", agentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/employe", employeRoutes);
 app.use("/api/history",historyRoutes);
+app.use("/api/csr",csr);
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();

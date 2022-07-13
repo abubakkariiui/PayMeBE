@@ -31,11 +31,6 @@ const agentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     amount:{
         type:Number,
         default:100000
