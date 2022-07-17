@@ -13,27 +13,30 @@ const agentSchema = mongoose.Schema(
       unique: true,
     },
     phone: {
-      type: Number
+      type: Number,
     },
     address: {
-      type: String
+      type: String,
     },
     cnic: {
-      type: String
+      type: String,
     },
     city: {
-      type: String
+      type: String,
     },
     postalCode: {
-      type: Number
+      type: Number,
+    },
+    pranchiseName: {
+      type: String,
     },
     password: {
       type: String,
       required: true,
     },
-    amount:{
-        type:Number,
-        default:100000
+    amount: {
+      type: Number,
+      default: 100000,
     },
     pic: {
       type: String,

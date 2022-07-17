@@ -20,6 +20,7 @@ const authAgent = asyncHandler(async (req, res) => {
       city: user.city,
       postalCode: user.postalCode,
       cnic: user.cnic,
+      pranchiseName: user.pranchiseName,
       pic: user.pic,
       amount: user.amount,
       token: generateToken(user._id),
@@ -34,7 +35,19 @@ const authAgent = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerAgent = asyncHandler(async (req, res) => {
-  const { name, email, password, pic, phone, address, cnic,postalCode, city , amount } = req.body;
+  const {
+    name,
+    email,
+    password,
+    pic,
+    phone,
+    address,
+    cnic,
+    postalCode,
+    city,
+    amount,
+    pranchiseName,
+  } = req.body;
 
   const userExists = await Agent.findOne({ email });
 
@@ -53,8 +66,10 @@ const registerAgent = asyncHandler(async (req, res) => {
     cnic,
     amount,
     postalCode,
-    city
+    city,
+    pranchiseName,
   });
+  
 
   if (user) {
     res.status(201).json({
@@ -67,6 +82,7 @@ const registerAgent = asyncHandler(async (req, res) => {
       city: user.city,
       postalCode: user.postalCode,
       pic: user.pic,
+      pranchiseName: user.pranchiseName,
       token: generateToken(user._id),
     });
   } else {
@@ -89,8 +105,9 @@ const updateAgentProfile = asyncHandler(async (req, res) => {
     user.address = req.body.address || user.address;
     user.cnic = req.body.cnic || user.cnic;
     user.city = req.body.city || user.city;
-    user.amount = req.body.amount || user.amount,
-    user.postalCode = req.body.postalCode || user.postalCode;
+    user.pranchiseName = req.body.pranchiseName || user.pranchiseName;
+    (user.amount = req.body.amount || user.amount),
+      (user.postalCode = req.body.postalCode || user.postalCode);
     if (req.body.password) {
       user.password = req.body.password;
     }
@@ -106,7 +123,7 @@ const updateAgentProfile = asyncHandler(async (req, res) => {
       address: updatedUser.address,
       cnic: updatedUser.cnic,
       city: updatedUser.city,
-      amount:updatedUser.amount,
+      amount: updatedUser.amount,
       postalCode: updatedUser.postalCode,
       token: generateToken(updatedUser._id),
     });
