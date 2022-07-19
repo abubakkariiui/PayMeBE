@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Agent from "../models/agentModel.js";
+import Pay from "../models/paymentRequest.js";
 import generateToken from "../utils/generateToken.js";
 
 //@description     Auth the user
@@ -69,7 +70,6 @@ const registerAgent = asyncHandler(async (req, res) => {
     city,
     pranchiseName,
   });
-  
 
   if (user) {
     res.status(201).json({
@@ -133,4 +133,20 @@ const updateAgentProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authAgent, updateAgentProfile, registerAgent };
+const getAllAgent = asyncHandler(async (req, res) => {
+  const test = await Agent.find();
+  res.json(test);
+});
+
+const getRequest = asyncHandler(async (req, res) => {
+  const test = await Pay.find();
+  res.json(test);
+});
+
+export {
+  authAgent,
+  updateAgentProfile,
+  registerAgent,
+  getRequest,
+  getAllAgent,
+};
