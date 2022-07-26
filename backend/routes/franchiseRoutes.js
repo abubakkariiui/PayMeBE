@@ -6,12 +6,11 @@ import {
   updateFranchiseProfile,
 } from "../controllers/franchiseController.js";
 import { protect } from "../middleware/authMiddleware.js";
-
 const router = express.Router();
 
-router.route("/").post(registerFranchise);
-router.post("/flogin", authFranchise);
-router.route("/fprofile").post(protect, updateFranchiseProfile);
+router.route("/franchiseRegister").post(registerFranchise);
+router.post("/franchiseLogin", authFranchise);
+router.route("/franchiseProfile").post(protect, updateFranchiseProfile);
 router.route("/getAllFranchise").get(getAllFranchise);
 
 export default router;

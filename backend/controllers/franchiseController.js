@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
-import Franchise from "../models/franchiseModel.js";
 import generateToken from "../utils/generateToken.js";
-
+import Franchise from "../models/franchiseModel.js";
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
@@ -34,7 +33,7 @@ const registerFranchise = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(404);
-    throw new Error("User already exists");
+    throw new Error("Franchise already exists");
   }
 
   const user = await Franchise.create({
@@ -54,7 +53,7 @@ const registerFranchise = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("User not found");
+    throw new Error("Franchise not found");
   }
 });
 
@@ -83,7 +82,7 @@ const updateFranchiseProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error("User Not Found");
+    throw new Error("Franchise Not Found");
   }
 });
 
