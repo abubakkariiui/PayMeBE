@@ -8,6 +8,7 @@ import contactRoutes from './routes/contactRoutes.js'
 import employeRoutes from './routes/employeRoutes.js'
 import historyRoutes from './routes/historyRoutes.js'
 import payRequest from "./routes/payRequest.js";
+import franchiseRoutes from "./routes/franchiseRoutes.js";
 import csr from './routes/csr.js'
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
@@ -26,6 +27,7 @@ app.use("/api/employe", employeRoutes);
 app.use("/api/history",historyRoutes);
 app.use("/api/csr",csr);
 app.use('/api/payRequest',payRequest)
+app.use('/api/franchise',franchiseRoutes)
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();
