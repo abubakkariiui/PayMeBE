@@ -5,7 +5,7 @@ import {
   registerFranchise,
   updateFranchiseProfile,
 } from "../controllers/franchiseController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect } from "../middleware/franchiseMiddleware.js";
 const router = express.Router();
 
 router.route("/franchiseRegister").post(registerFranchise);
