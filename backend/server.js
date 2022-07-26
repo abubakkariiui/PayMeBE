@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import path from "path";
 import agentRoutes from './routes/agentRoutes.js';
 import userRoutes from "./routes/userRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import contactRoutes from './routes/contactRoutes.js'
 import employeRoutes from './routes/employeRoutes.js'
 import historyRoutes from './routes/historyRoutes.js'
@@ -21,6 +22,7 @@ const app = express(); // main thing
 app.use(express.json()); // to accept json data
 
 app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/agent", agentRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/employe", employeRoutes);
