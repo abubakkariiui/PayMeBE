@@ -1,27 +1,28 @@
 import mongoose from "mongoose";
 
-const historySchema = mongoose.Schema({
+const historySchema = mongoose.Schema(
+  {
     receverName: {
-        type: String
+      type: String,
     },
     senderName: {
-        type: String
+      type: String,
     },
     amount: {
-        type: String
+      type: String,
     },
     receverPhone: {
-        type: String
+      type: String,
     },
     senderPhone: {
-        type: String
+      type: String,
     },
-},
-{
-    timestamps: true,  
-}
-)
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const History = mongoose.model('history',historySchema);
+const History = mongoose.model("history", historySchema);
 
 export default History;

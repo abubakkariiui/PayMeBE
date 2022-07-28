@@ -22,6 +22,7 @@ const authUser = asyncHandler(async (req, res) => {
       postalCode: user.postalCode,
       cnic: user.cnic,
       pic: user.pic,
+      amount: user.amount,
       token: generateToken(user._id),
     });
   } else {
@@ -34,7 +35,7 @@ const authUser = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic, phone, address, cnic, postalCode, city } =
+  const { name, email, password, pic, phone, address, cnic, postalCode, city,amount } =
     req.body;
 
   const userExists = await User.findOne({ email });
@@ -54,6 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
     cnic,
     postalCode,
     city,
+    amount
   });
 
   if (user) {
@@ -68,6 +70,7 @@ const registerUser = asyncHandler(async (req, res) => {
       postalCode: user.postalCode,
       isAdmin: user.isAdmin,
       pic: user.pic,
+      amount: user.amount,
       token: generateToken(user._id),
     });
   } else {
@@ -90,6 +93,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.address = req.body.address || user.address;
     user.cnic = req.body.cnic || user.cnic;
     user.city = req.body.city || user.city;
+    user.amount = req.body.city || user.amount;
     user.postalCode = req.body.postalCode || user.postalCode;
     if (req.body.password) {
       user.password = req.body.password;
@@ -108,6 +112,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       city: updatedUser.city,
       postalCode: updatedUser.postalCode,
       isAdmin: updatedUser.isAdmin,
+      amount: updatedUser.amount,
       token: generateToken(updatedUser._id),
     });
   } else {

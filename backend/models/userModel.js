@@ -13,19 +13,19 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
     phone: {
-      type: Number
+      type: Number,
     },
     address: {
-      type: String
+      type: String,
     },
     cnic: {
-      type: String
+      type: String,
     },
     city: {
-      type: String
+      type: String,
     },
     postalCode: {
-      type: Number
+      type: Number,
     },
     password: {
       type: String,
@@ -36,9 +36,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
-    amount:{
-      type:Number
-  },
+    amount: {
+      type: Number,
+      default: 0
+    },
 
     pic: {
       type: String,
