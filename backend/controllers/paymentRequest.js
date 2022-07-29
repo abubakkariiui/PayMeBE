@@ -1,19 +1,20 @@
 import asyncHandler from "express-async-handler";
-import Agent from "../models/agentModel.js";
 import Pay from "../models/paymentRequest.js";
 const PayRequest = asyncHandler(async (req, res) => {
-  const { franchiseSelect, agentNumber, amount } = req.body;
+  const { name, usernumber, amount, agentNumber } = req.body;
   const payData = await Pay.create({
-    franchiseSelect,
-    agentNumber,
+    name,
+    usernumber,
     amount,
+    agentNumber,
   });
   if (payData) {
     res.status(201).json({
       _id: payData._id,
-      franchiseSelect: payData.franchiseSelect,
-      agentNumber: payData.agentNumber,
+      name: payData.name,
+      usernumber: payData.usernumber,
       amount: payData.amount,
+      agentNumber: payData.agentNumber,
     });
   } else {
     res.status(400);
@@ -21,4 +22,21 @@ const PayRequest = asyncHandler(async (req, res) => {
   }
 });
 
-export { PayRequest };
+const DeleteReqeust = asyncHandler(async (req, res) => {
+  const note = await Pay.findById(req.params.id);
+
+  if (note) {
+    await note.remove();
+    res.json({ message: "Removed" });
+  } else {
+    res.status(404);
+    throw new Error("Not Found");
+  }
+});
+
+const getRequest = asyncHandler(async (req, res) => {
+  const history = await Pay.find();
+  res.json(history);
+});
+
+export { PayRequest, getRequest, DeleteReqeust };

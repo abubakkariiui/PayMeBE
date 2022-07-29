@@ -1,20 +1,17 @@
 import mongoose from "mongoose";
 const requestSchema = mongoose.Schema({
-  franchiseSelect: {
+  name: {
     type: String,
   },
-  agentNumber: {
-    type: Number,
+  usernumber: {
+    type: String,
   },
   amount: {
     type: Number,
   },
-  createdUser: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
+  agentNumber: {
+    type: String,
+  },
 });
 
 const Pay = mongoose.model("payRequest", requestSchema);
