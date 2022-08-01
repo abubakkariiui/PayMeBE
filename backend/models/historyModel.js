@@ -9,13 +9,13 @@ const historySchema = mongoose.Schema(
       type: String,
     },
     amount: {
-      type: String,
+      type: Number,
     },
     receverPhone: {
-      type: String,
+      type: Number,
     },
     senderPhone: {
-      type: String,
+      type: Number,
     },
   },
   {

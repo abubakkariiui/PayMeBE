@@ -10,11 +10,11 @@ const historyPost = asyncHandler(async (req, res) => {
   if (user) {
     user.amount = user.amount + amount;
   }
-  res.json({
-    _id: user._id,
-    amount: user.amount,
-    token: generateToken(user._id),
-  });
+  // res.json({
+  //   _id: user._id,
+  //   amount: user.amount,
+  //   token: generateToken(user._id),
+  // });
 
   const updatedUser = await user.save();
   const historyData = await History.create({
@@ -27,11 +27,11 @@ const historyPost = asyncHandler(async (req, res) => {
 
   if (historyData) {
     res.status(201).json({
-      receverName: employeData.receverName,
-      senderName: employeData.senderName,
-      amount: employeData.amount,
-      receverPhone: employeData.receverPhone,
-      senderPhone: employeData.senderPhone,
+      receverName: historyData.receverName,
+      senderName: historyData.senderName,
+      amount: historyData.amount,
+      receverPhone: historyData.receverPhone,
+      senderPhone: historyData.senderPhone,
     });
   } else {
     res.status(400);

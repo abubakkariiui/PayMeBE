@@ -35,8 +35,18 @@ const authUser = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic, phone, address, cnic, postalCode, city,amount } =
-    req.body;
+  const {
+    name,
+    email,
+    password,
+    pic,
+    phone,
+    address,
+    cnic,
+    postalCode,
+    city,
+    amount,
+  } = req.body;
 
   const userExists = await User.findOne({ email });
 
@@ -55,7 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
     cnic,
     postalCode,
     city,
-    amount
+    amount,
   });
 
   if (user) {
@@ -121,9 +131,18 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const postPayment = asyncHandler(async (req, res) => {
+  const { amount, receverPhone } = req.body;
+  const user = await User.findOne({ phone: receverPhone });
+  if (user) {
+    user.amount = user.amount + amount;
+  }
+  const updatedUser = await user.save();
+});
+
 const getAllUser = asyncHandler(async (req, res) => {
   const users = await User.find();
   res.json(users);
 });
 
-export { authUser, updateUserProfile, registerUser ,getAllUser};
+export { authUser, updateUserProfile, registerUser, getAllUser, postPayment };
