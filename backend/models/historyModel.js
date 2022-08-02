@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const historySchema = mongoose.Schema(
   {
-    receverName: {
+    receiverName: {
       type: String,
     },
     senderName: {
@@ -11,10 +11,10 @@ const historySchema = mongoose.Schema(
     amount: {
       type: Number,
     },
-    receverPhone: {
+    receiverNumber: {
       type: Number,
     },
-    senderPhone: {
+    senderNumber: {
       type: Number,
     },
   },

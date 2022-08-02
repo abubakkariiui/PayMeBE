@@ -22,7 +22,6 @@ connectDB();
 const app = express(); // main thing
 
 app.use(express.json()); // to accept json data
-
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/agent", agentRoutes);

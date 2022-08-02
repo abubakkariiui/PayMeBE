@@ -1,28 +1,29 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import History from "../models/historyModel.js";
-import generateToken from "../utils/generateToken.js";
 
 const historyPost = asyncHandler(async (req, res) => {
-  const { receverName, senderName, amount, receverPhone, senderPhone } =
+  const { amount, receiverNumber, senderNumber, senderName, receiverName } =
     req.body;
-  const user = await User.findOne({ phone: receverPhone });
-  if (user) {
-    user.amount = user.amount + amount;
+  console.log(req.body);
+  const receiveUser = await User.findOne({ phone: receiverNumber });
+  if (receiveUser) {
+    receiveUser.amount = receiveUser.amount + Number(amount);
   }
-  // res.json({
-  //   _id: user._id,
-  //   amount: user.amount,
-  //   token: generateToken(user._id),
-  // });
+  const updatedUser1 = await receiveUser.save();
 
-  const updatedUser = await user.save();
+  const senderUser = await User.findOne({ phone: senderNumber });
+  if (senderUser) {
+    senderUser.amount = senderUser.amount - Number(amount);
+  }
+  const updatedUser2 = await senderUser.save();
+
   const historyData = await History.create({
-    receverName,
+    receiverName,
     senderName,
     amount,
-    receverPhone,
-    senderPhone,
+    receiverNumber,
+    senderNumber,
   });
 
   if (historyData) {

@@ -131,18 +131,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-const postPayment = asyncHandler(async (req, res) => {
-  const { amount, receverPhone } = req.body;
-  const user = await User.findOne({ phone: receverPhone });
-  if (user) {
-    user.amount = user.amount + amount;
-  }
-  const updatedUser = await user.save();
-});
 
 const getAllUser = asyncHandler(async (req, res) => {
   const users = await User.find();
   res.json(users);
 });
 
-export { authUser, updateUserProfile, registerUser, getAllUser, postPayment };
+export { authUser, updateUserProfile, registerUser, getAllUser };
