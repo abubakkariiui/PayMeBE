@@ -86,6 +86,18 @@ const updateAccountantProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const DeleteAccountant = asyncHandler(async (req, res) => {
+  const reqeust = await Accountant.findById(req.params.id);
+
+  if (reqeust) {
+    await reqeust.remove();
+    res.json({ message: "Removed" });
+  } else {
+    res.status(404);
+    throw new Error("Not Found");
+  }
+});
+
 const getAllAccountant = asyncHandler(async (req, res) => {
   const users = await Accountant.find();
   res.json(users);
@@ -96,4 +108,5 @@ export {
   updateAccountantProfile,
   registerAccountant,
   getAllAccountant,
+  DeleteAccountant
 };
