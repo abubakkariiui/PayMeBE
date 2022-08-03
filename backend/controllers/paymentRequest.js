@@ -23,10 +23,10 @@ const PayRequest = asyncHandler(async (req, res) => {
 });
 
 const DeleteReqeust = asyncHandler(async (req, res) => {
-  const note = await Pay.findById(req.params.id);
+  const reqeust = await Pay.findById(req.params.id);
 
-  if (note) {
-    await note.remove();
+  if (reqeust) {
+    await reqeust.remove();
     res.json({ message: "Removed" });
   } else {
     res.status(404);

@@ -143,10 +143,23 @@ const getRequest = asyncHandler(async (req, res) => {
   res.json(test);
 });
 
+const DeleteAgent = asyncHandler(async (req, res) => {
+  const reqeust = await Agent.findById(req.params.id);
+
+  if (reqeust) {
+    await reqeust.remove();
+    res.json({ message: "Removed" });
+  } else {
+    res.status(404);
+    throw new Error("Not Found");
+  }
+});
+
 export {
   authAgent,
   updateAgentProfile,
   registerAgent,
   getRequest,
   getAllAgent,
+  DeleteAgent
 };

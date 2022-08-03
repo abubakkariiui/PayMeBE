@@ -5,10 +5,9 @@ import History from "../models/historyModel.js";
 const historyPost = asyncHandler(async (req, res) => {
   const { amount, receiverNumber, senderNumber, senderName, receiverName } =
     req.body;
-  console.log(req.body);
   const receiveUser = await User.findOne({ phone: receiverNumber });
   if (receiveUser) {
-    receiveUser.amount = receiveUser.amount + Number(amount);
+    receiveUser.amount = Number(receiveUser.amount) + Number(amount);
   }
   const updatedUser1 = await receiveUser.save();
 

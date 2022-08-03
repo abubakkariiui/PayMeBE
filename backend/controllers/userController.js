@@ -103,7 +103,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.address = req.body.address || user.address;
     user.cnic = req.body.cnic || user.cnic;
     user.city = req.body.city || user.city;
-    user.amount = req.body.city || user.amount;
+    user.amount = req.body.amount || user.amount;
     user.postalCode = req.body.postalCode || user.postalCode;
     if (req.body.password) {
       user.password = req.body.password;
