@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import History from "../models/historyModel.js";
+import Agent from "../models/agentModel.js";
 
 const historyPost = asyncHandler(async (req, res) => {
   const { amount, receiverNumber, senderNumber, senderName, receiverName } =
@@ -37,6 +38,58 @@ const historyPost = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("History not Saved");
   }
+});
+
+const agentMoneySend = asyncHandler(async (req, res) => {
+  const { amount, receiverNumber, senderNumber, senderName, receiverName } =
+    req.body;
+
+  const agentTransfer = await User.findOne({ phone: receiverNumber });
+  if (agentTransfer) {
+    agentTransfer.amount = Number(agentTransfer.amount) + Number(amount);
+  }
+  const updatedAgent = await agentTransfer.save();
+
+  const agentSender = await Agent.findOne({ phone: senderNumber });
+  if (agentSender) {
+    agentSender.amount = agentSender.amount - Number(amount);
+  }
+
+  const updatedAgentSender = await agentSender.save();
+
+  const historyData = await History.create({
+    receiverName,
+    senderName,
+    amount,
+    receiverNumber,
+    senderNumber,
+  });
+
+  if (historyData) {
+    res.status(201).json({
+      receverName: historyData.receverName,
+      senderName: historyData.senderName,
+      amount: historyData.amount,
+      receverPhone: historyData.receverPhone,
+      senderPhone: historyData.senderPhone,
+    });
+  } else {
+    res.status(400);
+    throw new Error("History not Saved");
+  }
+});
+
+const moneyToAgent = asyncHandler(async (req, res) => {
+  const { amount, receiverNumber, senderNumber, senderName, receiverName } =
+    req.body;
+
+  const agentTransfer = await Agent.findOne({ phone: receiverNumber });
+  if (agentTransfer) {
+    agentTransfer.amount = Number(agentTransfer.amount) + Number(amount);
+  }
+  const updatedAgent = await agentTransfer.save();
+
+  res.status(200).json(updatedAgent)
 });
 
 const gethistorybyName = asyncHandler(async (req, res) => {
@@ -89,4 +142,4 @@ const getAllHistory = asyncHandler(async (req, res) => {
   res.json(history);
 });
 
-export { historyPost, gethistorybyName, getAllHistory };
+export { historyPost, gethistorybyName, getAllHistory, agentMoneySend,moneyToAgent };

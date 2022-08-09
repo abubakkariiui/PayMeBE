@@ -80,6 +80,7 @@ const registerAgent = asyncHandler(async (req, res) => {
       address: user.address,
       cnic: user.cnic,
       city: user.city,
+      amount: user.amount,
       postalCode: user.postalCode,
       pic: user.pic,
       pranchiseName: user.pranchiseName,
@@ -154,6 +155,8 @@ const DeleteAgent = asyncHandler(async (req, res) => {
     throw new Error("Not Found");
   }
 });
+
+
 
 export {
   authAgent,
