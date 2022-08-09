@@ -12,6 +12,7 @@ import payRequest from "./routes/payRequest.js";
 import accountantRoutes from "./routes/accountantRoutes.js";
 import franchiseRoutes from "./routes/franchiseRoutes.js";
 import csrRoutes from "./routes/csrRoutes.js";
+import bankRoutes from "./routes/bankRoutes.js";
 import csr from './routes/csr.js'
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
@@ -25,6 +26,7 @@ app.use(express.json()); // to accept json data
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/agent", agentRoutes);
+app.use("/api/bank", bankRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/employe", employeRoutes);
 app.use("/api/history",historyRoutes);

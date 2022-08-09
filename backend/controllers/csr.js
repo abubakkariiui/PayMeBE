@@ -1,9 +1,11 @@
 import asyncHandler from "express-async-handler";
 import CSR from '../models/CSR.js'
 const csrPost = asyncHandler(async (req, res) => {
-  const { query, description } = req.body;
+  const {name,phone, query, description } = req.body;
 
   const contactData = await CSR.create({
+    name,
+    phone,
     query,
     description
   });
@@ -11,6 +13,8 @@ const csrPost = asyncHandler(async (req, res) => {
   if (contactData) {
     res.status(201).json({
       _id: contactData._id,
+      name: contactData.name,
+      phone: contactData.phone,
       query: contactData.query,
       description: contactData.description,
     });

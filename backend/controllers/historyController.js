@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import History from "../models/historyModel.js";
 import Agent from "../models/agentModel.js";
+import Bank from "../models/bankModel.js";
 
 const historyPost = asyncHandler(async (req, res) => {
   const { amount, receiverNumber, senderNumber, senderName, receiverName } =
@@ -80,8 +81,7 @@ const agentMoneySend = asyncHandler(async (req, res) => {
 });
 
 const moneyToAgent = asyncHandler(async (req, res) => {
-  const { amount, receiverNumber, senderNumber, senderName, receiverName } =
-    req.body;
+  const { amount, receiverNumber } = req.body;
 
   const agentTransfer = await Agent.findOne({ phone: receiverNumber });
   if (agentTransfer) {
@@ -89,7 +89,33 @@ const moneyToAgent = asyncHandler(async (req, res) => {
   }
   const updatedAgent = await agentTransfer.save();
 
-  res.status(200).json(updatedAgent)
+  res.status(200).json(updatedAgent);
+});
+
+const moneyToBank = asyncHandler(async (req, res) => {
+  const { amount, receiverNumber, senderNumber,senderName ,receiverName} = req.body;
+
+  const agentTransfer = await Bank.findOne({ number: receiverNumber });
+  if (agentTransfer) {
+    agentTransfer.amount = Number(agentTransfer.amount) + Number(amount);
+  }
+  const updatedAgent = await agentTransfer.save();
+
+  const senderUser = await User.findOne({ phone: senderNumber });
+  if (senderUser) {
+    senderUser.amount = senderUser.amount - Number(amount);
+  }
+  const updatedUser2 = await senderUser.save();
+
+  const historyData = await History.create({
+    amount,
+    receiverNumber,
+    receiverName,
+    senderNumber,
+    senderName
+  });
+
+  res.status(200).json(historyData);
 });
 
 const gethistorybyName = asyncHandler(async (req, res) => {
@@ -142,4 +168,11 @@ const getAllHistory = asyncHandler(async (req, res) => {
   res.json(history);
 });
 
-export { historyPost, gethistorybyName, getAllHistory, agentMoneySend,moneyToAgent };
+export {
+  historyPost,
+  gethistorybyName,
+  getAllHistory,
+  agentMoneySend,
+  moneyToAgent,
+  moneyToBank,
+};
