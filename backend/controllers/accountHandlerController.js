@@ -1,21 +1,19 @@
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
-import Accountant from '../models/accountantModel.js'
+import AccountHandler from '../models/AccountHandlerModel.js'
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
-const authAccountant = asyncHandler(async (req, res) => {
+const authAccountHandler = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await Accountant.findOne({ email });
+  const user = await AccountHandler.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      frontCNIC: user.frontCNIC,
-      backCNIC: user.backCNIC,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -28,22 +26,20 @@ const authAccountant = asyncHandler(async (req, res) => {
 //@description     Register new user
 //@route           POST /api/users/
 //@access          Public
-const registerAccountant = asyncHandler(async (req, res) => {
-  const { name, email, password, backCNIC, frontCNIC, pic } = req.body;
+const registerAccountHandler = asyncHandler(async (req, res) => {
+  const { name, email, password, pic } = req.body;
 
-  const userExists = await Accountant.findOne({ email });
+  const userExists = await AccountHandler.findOne({ email });
 
   if (userExists) {
     res.status(404);
-    throw new Error("Accountant already exists");
+    throw new Error("AccountHandler already exists");
   }
 
-  const user = await Accountant.create({
+  const user = await AccountHandler.create({
     name,
     email,
     password,
-    backCNIC,
-    frontCNIC,
     pic,
   });
 
@@ -52,22 +48,20 @@ const registerAccountant = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      frontCNIC: user.frontCNIC,
-      backCNIC: user.backCNIC,
       pic: user.pic,
       token: generateToken(user._id),
     });
   } else {
     res.status(400);
-    throw new Error("Accountant not found");
+    throw new Error("AccountHandler not found");
   }
 });
 
 // @desc    GET user profile
 // @route   GET /api/users/profile
 // @access  Private
-const updateAccountantProfile = asyncHandler(async (req, res) => {
-  const user = await Accountant.findById(req.user._id);
+const updateAccountHandler = asyncHandler(async (req, res) => {
+  const user = await AccountHandler.findById(req.user._id);
 
   if (user) {
     user.name = req.body.name || user.name;
@@ -88,12 +82,17 @@ const updateAccountantProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error("Accountant Not Found");
+    throw new Error("AccountHandler Not Found");
   }
 });
 
-const DeleteAccountant = asyncHandler(async (req, res) => {
-  const reqeust = await Accountant.findById(req.params.id);
+const getAllAccountHandler = asyncHandler(async (req, res) => {
+  const users = await AccountHandler.find();
+  res.json(users);
+});
+
+const DeleteAccountHandler = asyncHandler(async (req, res) => {
+  const reqeust = await AccountHandler.findById(req.params.id);
 
   if (reqeust) {
     await reqeust.remove();
@@ -104,15 +103,4 @@ const DeleteAccountant = asyncHandler(async (req, res) => {
   }
 });
 
-const getAllAccountant = asyncHandler(async (req, res) => {
-  const users = await Accountant.find();
-  res.json(users);
-});
-
-export {
-  authAccountant,
-  updateAccountantProfile,
-  registerAccountant,
-  getAllAccountant,
-  DeleteAccountant
-};
+export { authAccountHandler, registerAccountHandler, DeleteAccountHandler, getAllAccountHandler, updateAccountHandler };

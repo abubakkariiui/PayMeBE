@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const accountantSchema = mongoose.Schema(
+const accountHandlerSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -16,14 +16,6 @@ const accountantSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    frontCNIC: {
-      type: String,
-      required: true
-    },
-    backCNIC: {
-      type: String,
-      required: true
-    },
     pic: {
       type: String,
       required: true,
@@ -36,12 +28,12 @@ const accountantSchema = mongoose.Schema(
   }
 );
 
-accountantSchema.methods.matchPassword = async function (enteredPassword) {
+accountHandlerSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // will encrypt password everytime its saved
-accountantSchema.pre("save", async function (next) {
+accountHandlerSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -49,6 +41,6 @@ accountantSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-const Accountant = mongoose.model("Accountant", accountantSchema);
+const AccountHandler = mongoose.model("accountHandler", accountHandlerSchema);
 
-export default Accountant;
+export default AccountHandler;

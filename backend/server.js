@@ -11,6 +11,7 @@ import historyRoutes from './routes/historyRoutes.js'
 import payRequest from "./routes/payRequest.js";
 import accountantRoutes from "./routes/accountantRoutes.js";
 import franchiseRoutes from "./routes/franchiseRoutes.js";
+import accountHandlerRoutes from "./routes/accountHandlerRoutes.js";
 import csrRoutes from "./routes/csrRoutes.js";
 import bankRoutes from "./routes/bankRoutes.js";
 import csr from './routes/csr.js'
@@ -29,12 +30,13 @@ app.use("/api/agent", agentRoutes);
 app.use("/api/bank", bankRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/employe", employeRoutes);
-app.use("/api/history",historyRoutes);
-app.use("/api/csr",csr);
-app.use('/api/payRequest',payRequest)
-app.use('/api/franchise',franchiseRoutes)
-app.use('/api/accountant',accountantRoutes)
-app.use('/api/csrr',csrRoutes)
+app.use("/api/history", historyRoutes);
+app.use("/api/csr", csr);
+app.use('/api/payRequest', payRequest)
+app.use('/api/franchise', franchiseRoutes)
+app.use('/api/handler', accountHandlerRoutes)
+app.use('/api/accountant', accountantRoutes)
+app.use('/api/csrr', csrRoutes)
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();

@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.route("/adminRegister").post(registerAdmin);
 router.post("/adminLogin", authAdmin);
-router.route("/adminProfile").post(protect,updateAdminProfile);
+router.route("/adminProfile").post(protect, updateAdminProfile);
 
 export default router;
