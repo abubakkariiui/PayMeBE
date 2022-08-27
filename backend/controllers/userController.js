@@ -131,10 +131,40 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const DeleteUser = asyncHandler(async (req, res) => {
+  const reqeust = await User.findById(req.params.id);
+
+  if (reqeust) {
+    await reqeust.remove();
+    res.json({ message: "Removed" });
+  } else {
+    res.status(404);
+    throw new Error("Not Found");
+  }
+});
+
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ message: "Note not found" });
+  }
+
+  res.json(user);
+});
 
 const getAllUser = asyncHandler(async (req, res) => {
   const users = await User.find();
   res.json(users);
 });
 
-export { authUser, updateUserProfile, registerUser, getAllUser };
+export {
+  authUser,
+  updateUserProfile,
+  registerUser,
+  getAllUser,
+  DeleteUser,
+  getUserById,
+};
