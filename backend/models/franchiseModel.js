@@ -16,6 +16,14 @@ const franchiseSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    frontCNIC: {
+      type: String,
+      required: true,
+    },
+    backCNIC: {
+      type: String,
+      required: true,
+    },
     pic: {
       type: String,
       required: true,

@@ -14,6 +14,8 @@ const authFranchise = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -27,7 +29,7 @@ const authFranchise = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerFranchise = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, backCNIC, frontCNIC, pic } = req.body;
 
   const userExists = await Franchise.findOne({ email });
 
@@ -40,6 +42,8 @@ const registerFranchise = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    backCNIC,
+    frontCNIC,
     pic,
   });
 
@@ -48,6 +52,8 @@ const registerFranchise = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -108,5 +114,5 @@ export {
   updateFranchiseProfile,
   registerFranchise,
   getAllFranchise,
-  DeleteFranchise
+  DeleteFranchise,
 };

@@ -14,6 +14,8 @@ const authCSR = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -27,7 +29,7 @@ const authCSR = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerCSR = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password,backCNIC, frontCNIC, pic, } = req.body;
 
   const userExists = await CSRR.findOne({ email });
 
@@ -40,6 +42,8 @@ const registerCSR = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    backCNIC,
+    frontCNIC,
     pic,
   });
 
@@ -48,6 +52,8 @@ const registerCSR = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
       token: generateToken(user._id),
     });
