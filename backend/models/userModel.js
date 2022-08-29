@@ -36,6 +36,14 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    frontCNIC: {
+      type: String,
+      required: true
+    },
+    backCNIC: {
+      type: String,
+      required: true
+    },
     amount: {
       type: Number,
       default: 0

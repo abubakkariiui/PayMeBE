@@ -23,6 +23,8 @@ const authUser = asyncHandler(async (req, res) => {
       cnic: user.cnic,
       pic: user.pic,
       amount: user.amount,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       token: generateToken(user._id),
     });
   } else {
@@ -45,6 +47,8 @@ const registerUser = asyncHandler(async (req, res) => {
     cnic,
     postalCode,
     city,
+    backCNIC,
+    frontCNIC,
     amount,
   } = req.body;
 
@@ -65,6 +69,8 @@ const registerUser = asyncHandler(async (req, res) => {
     cnic,
     postalCode,
     city,
+    backCNIC,
+    frontCNIC,
     amount,
   });
 
@@ -79,6 +85,8 @@ const registerUser = asyncHandler(async (req, res) => {
       city: user.city,
       postalCode: user.postalCode,
       isAdmin: user.isAdmin,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
       amount: user.amount,
       token: generateToken(user._id),
