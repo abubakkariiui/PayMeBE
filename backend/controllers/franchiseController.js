@@ -109,10 +109,23 @@ const DeleteFranchise = asyncHandler(async (req, res) => {
   }
 });
 
+const getFranchiseById = asyncHandler(async (req, res) => {
+  const franchise = await Franchise.findById(req.params.id);
+
+  if (franchise) {
+    res.json(franchise);
+  } else {
+    res.status(404).json({ message: "Franchise not found" });
+  }
+
+  res.json(franchise);
+});
+
 export {
   authFranchise,
   updateFranchiseProfile,
   registerFranchise,
   getAllFranchise,
   DeleteFranchise,
+  getFranchiseById
 };

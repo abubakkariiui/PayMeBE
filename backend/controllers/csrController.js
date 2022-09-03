@@ -29,7 +29,7 @@ const authCSR = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerCSR = asyncHandler(async (req, res) => {
-  const { name, email, password,backCNIC, frontCNIC, pic, } = req.body;
+  const { name, email, password, backCNIC, frontCNIC, pic } = req.body;
 
   const userExists = await CSRR.findOne({ email });
 
@@ -109,4 +109,23 @@ const getAllCSR = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
-export { authCSR, updateCSRProfile, registerCSR, DeleteCSR, getAllCSR };
+const getCsrById = asyncHandler(async (req, res) => {
+  const csr = await CSRR.findById(req.params.id);
+
+  if (csr) {
+    res.json(csr);
+  } else {
+    res.status(404).json({ message: "csr not found" });
+  }
+
+  res.json(csr);
+});
+
+export {
+  authCSR,
+  updateCSRProfile,
+  registerCSR,
+  DeleteCSR,
+  getAllCSR,
+  getCsrById,
+};

@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
-import Accountant from '../models/accountantModel.js'
+import Accountant from "../models/accountantModel.js";
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
@@ -109,10 +109,21 @@ const getAllAccountant = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
+const getAccountantById = asyncHandler(async (req, res) => {
+  const accountant = await Accountant.findById(req.params.id);
+
+  if (accountant) {
+    res.json(accountant);
+  } else {
+    res.status(404).json({ message: "Accountant not found" });
+  }
+  res.json(accountant);
+});
 export {
   authAccountant,
   updateAccountantProfile,
   registerAccountant,
   getAllAccountant,
-  DeleteAccountant
+  DeleteAccountant,
+  getAccountantById
 };

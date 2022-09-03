@@ -2,6 +2,7 @@ import express from "express";
 import {
   authAgent,
   DeleteAgent,
+  getAgentById,
   getAllAgent,
   getRequest,
   registerAgent,
@@ -16,5 +17,6 @@ router.route("/agentProfile").post(agentProtect, updateAgentProfile);
 router.route("/").get(getRequest);
 router.route("/getAllAgent").get(getAllAgent);
 router.route("/:id").delete(DeleteAgent);
+router.route("/:id").get(getAgentById);
 
 export default router;

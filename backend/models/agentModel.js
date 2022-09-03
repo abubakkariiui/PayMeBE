@@ -38,6 +38,14 @@ const agentSchema = mongoose.Schema(
       type: Number,
       default: 100000,
     },
+    frontCNIC: {
+      type: String,
+      required: true,
+    },
+    backCNIC: {
+      type: String,
+      required: true,
+    },
     pic: {
       type: String,
       required: true,

@@ -22,6 +22,8 @@ const authAgent = asyncHandler(async (req, res) => {
       postalCode: user.postalCode,
       cnic: user.cnic,
       pranchiseName: user.pranchiseName,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
       amount: user.amount,
       token: generateToken(user._id),
@@ -40,6 +42,8 @@ const registerAgent = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    backCNIC,
+    frontCNIC,
     pic,
     phone,
     address,
@@ -61,6 +65,8 @@ const registerAgent = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    backCNIC,
+    frontCNIC,
     pic,
     phone,
     address,
@@ -82,6 +88,8 @@ const registerAgent = asyncHandler(async (req, res) => {
       city: user.city,
       amount: user.amount,
       postalCode: user.postalCode,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
       pranchiseName: user.pranchiseName,
       token: generateToken(user._id),
@@ -156,7 +164,16 @@ const DeleteAgent = asyncHandler(async (req, res) => {
   }
 });
 
+const getAgentById = asyncHandler(async (req, res) => {
+  const accountant = await Agent.findById(req.params.id);
 
+  if (accountant) {
+    res.json(accountant);
+  } else {
+    res.status(404).json({ message: "Agent not found" });
+  }
+  res.json(accountant);
+});
 
 export {
   authAgent,
@@ -164,5 +181,6 @@ export {
   registerAgent,
   getRequest,
   getAllAgent,
-  DeleteAgent
+  DeleteAgent,
+  getAgentById,
 };

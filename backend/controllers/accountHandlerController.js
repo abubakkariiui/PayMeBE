@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
-import AccountHandler from '../models/AccountHandlerModel.js'
+import AccountHandler from "../models/AccountHandlerModel.js";
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
@@ -91,6 +91,18 @@ const getAllAccountHandler = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
+const getHandlerById = asyncHandler(async (req, res) => {
+  const user = await AccountHandler.findById(req.params.id);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ message: "Account Handler not found" });
+  }
+
+  res.json(user);
+});
+
 const DeleteAccountHandler = asyncHandler(async (req, res) => {
   const reqeust = await AccountHandler.findById(req.params.id);
 
@@ -103,4 +115,11 @@ const DeleteAccountHandler = asyncHandler(async (req, res) => {
   }
 });
 
-export { authAccountHandler, registerAccountHandler, DeleteAccountHandler, getAllAccountHandler, updateAccountHandler };
+export {
+  authAccountHandler,
+  registerAccountHandler,
+  getHandlerById,
+  DeleteAccountHandler,
+  getAllAccountHandler,
+  updateAccountHandler,
+};
