@@ -25,6 +25,7 @@ const authAgent = asyncHandler(async (req, res) => {
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
       pic: user.pic,
+      isApprove: user.isApprove,
       amount: user.amount,
       token: generateToken(user._id),
     });
@@ -91,6 +92,7 @@ const registerAgent = asyncHandler(async (req, res) => {
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
       pic: user.pic,
+      isApprove: user.isApprove,
       pranchiseName: user.pranchiseName,
       token: generateToken(user._id),
     });
@@ -134,6 +136,7 @@ const updateAgentProfile = asyncHandler(async (req, res) => {
       city: updatedUser.city,
       amount: updatedUser.amount,
       postalCode: updatedUser.postalCode,
+      isApprove: updatedUser.isApprove,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -164,6 +167,17 @@ const DeleteAgent = asyncHandler(async (req, res) => {
   }
 });
 
+const handleApprove = asyncHandler(async (req, res) => {
+  const user = await Agent.findById(req.params.id);
+  if (user) {
+    user.isAdmin = true;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).send("Approved");
+});
+
 const getAgentById = asyncHandler(async (req, res) => {
   const accountant = await Agent.findById(req.params.id);
 
@@ -183,4 +197,5 @@ export {
   getAllAgent,
   DeleteAgent,
   getAgentById,
+  handleApprove,
 };

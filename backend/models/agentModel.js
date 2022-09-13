@@ -46,6 +46,11 @@ const agentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    isApprove: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     pic: {
       type: String,
       required: true,
