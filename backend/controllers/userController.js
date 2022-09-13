@@ -97,6 +97,17 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+const handleApprove = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.isAdmin = true;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).send("Approved");
+});
+
 // @desc    GET user profile
 // @route   GET /api/users/profile
 // @access  Private
@@ -175,4 +186,5 @@ export {
   getAllUser,
   DeleteUser,
   getUserById,
+  handleApprove,
 };
