@@ -14,7 +14,10 @@ const authAccountHandler = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
+      isApprove: user.isApprove,
       token: generateToken(user._id),
     });
   } else {
@@ -27,7 +30,7 @@ const authAccountHandler = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerAccountHandler = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password,backCNIC, frontCNIC, pic } = req.body;
 
   const userExists = await AccountHandler.findOne({ email });
 
@@ -40,6 +43,8 @@ const registerAccountHandler = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    backCNIC,
+    frontCNIC,
     pic,
   });
 
@@ -48,7 +53,10 @@ const registerAccountHandler = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      frontCNIC: user.frontCNIC,
+      backCNIC: user.backCNIC,
       pic: user.pic,
+      isApprove: user.isApprove,
       token: generateToken(user._id),
     });
   } else {
@@ -78,6 +86,7 @@ const updateAccountHandler = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       pic: updatedUser.pic,
+      isApprove: updatedUser.isApprove,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -103,6 +112,17 @@ const getHandlerById = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
+const handleApprove = asyncHandler(async (req, res) => {
+  const user = await AccountHandler.findById(req.params.id);
+  if (user) {
+    user.isApprove = true;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).send("Approved");
+});
+
 const DeleteAccountHandler = asyncHandler(async (req, res) => {
   const reqeust = await AccountHandler.findById(req.params.id);
 
@@ -122,4 +142,5 @@ export {
   DeleteAccountHandler,
   getAllAccountHandler,
   updateAccountHandler,
+  handleApprove
 };

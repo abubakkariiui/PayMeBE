@@ -6,6 +6,7 @@ import {
   getAllCSR,
   DeleteCSR,
   getCsrById,
+  handleApprove,
 } from "../controllers/csrController.js";
 import { protect } from "../middleware/csrMiddleware.js";
 const router = express.Router();
@@ -16,4 +17,6 @@ router.route("/csrProfile").post(protect, updateCSRProfile);
 router.route("/getAllCsr").get(getAllCSR);
 router.route("/:id").delete(DeleteCSR);
 router.route("/:id").get(getCsrById);
+router.route("/handleApprove/:id").post(handleApprove);
+
 export default router;

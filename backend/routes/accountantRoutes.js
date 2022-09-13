@@ -4,6 +4,7 @@ import {
   DeleteAccountant,
   getAccountantById,
   getAllAccountant,
+  handleApprove,
   registerAccountant,
   updateAccountantProfile,
 } from "../controllers/accountantController.js";
@@ -17,5 +18,6 @@ router.route("/accountantProfile").post(protect, updateAccountantProfile);
 router.route("/getAllAccountant").get(getAllAccountant);
 router.route("/:id").delete(DeleteAccountant);
 router.route("/:id").get(getAccountantById);
+router.route("/handleApprove/:id").post(handleApprove);
 
 export default router;

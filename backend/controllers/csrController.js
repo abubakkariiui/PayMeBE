@@ -16,6 +16,7 @@ const authCSR = asyncHandler(async (req, res) => {
       email: user.email,
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
+      isApprove: user.isApprove,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -54,6 +55,7 @@ const registerCSR = asyncHandler(async (req, res) => {
       email: user.email,
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
+      isApprove: user.isApprove,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -84,6 +86,7 @@ const updateCSRProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       pic: updatedUser.pic,
+      isApprove: updatedUser.isApprove,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -109,6 +112,17 @@ const getAllCSR = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
+const handleApprove = asyncHandler(async (req, res) => {
+  const user = await CSRR.findById(req.params.id);
+  if (user) {
+    user.isApprove = true;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).send("Approved");
+});
+
 const getCsrById = asyncHandler(async (req, res) => {
   const csr = await CSRR.findById(req.params.id);
 
@@ -128,4 +142,5 @@ export {
   DeleteCSR,
   getAllCSR,
   getCsrById,
+  handleApprove
 };

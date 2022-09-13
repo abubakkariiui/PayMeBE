@@ -4,6 +4,7 @@ import {
   DeleteFranchise,
   getAllFranchise,
   getFranchiseById,
+  handleApprove,
   registerFranchise,
   updateFranchiseProfile,
 } from "../controllers/franchiseController.js";
@@ -16,4 +17,7 @@ router.route("/franchiseProfile").post(protect, updateFranchiseProfile);
 router.route("/getAllFranchise").get(getAllFranchise);
 router.route("/:id").delete(DeleteFranchise);
 router.route("/:id").get(getFranchiseById);
+router.route("/handleApprove/:id").post(handleApprove);
+
+
 export default router;

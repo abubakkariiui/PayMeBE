@@ -16,6 +16,7 @@ const authFranchise = asyncHandler(async (req, res) => {
       email: user.email,
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
+      isApprove: user.isApprove,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -54,6 +55,7 @@ const registerFranchise = asyncHandler(async (req, res) => {
       email: user.email,
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
+      isApprove: user.isApprove,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -84,6 +86,7 @@ const updateFranchiseProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       pic: updatedUser.pic,
+      isApprove: updatedUser.isApprove,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -109,6 +112,17 @@ const DeleteFranchise = asyncHandler(async (req, res) => {
   }
 });
 
+const handleApprove = asyncHandler(async (req, res) => {
+  const user = await Franchise.findById(req.params.id);
+  if (user) {
+    user.isApprove = true;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).send("Approved");
+});
+
 const getFranchiseById = asyncHandler(async (req, res) => {
   const franchise = await Franchise.findById(req.params.id);
 
@@ -127,5 +141,6 @@ export {
   registerFranchise,
   getAllFranchise,
   DeleteFranchise,
-  getFranchiseById
+  getFranchiseById,
+  handleApprove
 };

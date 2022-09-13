@@ -16,6 +16,7 @@ const authAccountant = asyncHandler(async (req, res) => {
       email: user.email,
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
+      isApprove: user.isApprove,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -55,6 +56,7 @@ const registerAccountant = asyncHandler(async (req, res) => {
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
       pic: user.pic,
+      isApprove: user.isApprove,
       token: generateToken(user._id),
     });
   } else {
@@ -84,6 +86,7 @@ const updateAccountantProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       pic: updatedUser.pic,
+      isApprove: updatedUser.isApprove,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -109,6 +112,18 @@ const getAllAccountant = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
+
+const handleApprove = asyncHandler(async (req, res) => {
+  const user = await Accountant.findById(req.params.id);
+  if (user) {
+    user.isApprove = true;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).send("Approved");
+});
+
 const getAccountantById = asyncHandler(async (req, res) => {
   const accountant = await Accountant.findById(req.params.id);
 
@@ -125,5 +140,6 @@ export {
   registerAccountant,
   getAllAccountant,
   DeleteAccountant,
-  getAccountantById
+  getAccountantById,
+  handleApprove
 };
