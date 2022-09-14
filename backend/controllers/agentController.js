@@ -170,7 +170,7 @@ const DeleteAgent = asyncHandler(async (req, res) => {
 const handleApprove = asyncHandler(async (req, res) => {
   const user = await Agent.findById(req.params.id);
   if (user) {
-    user.isAdmin = true;
+    user.isApprove = true;
   }
 
   const updatedUser = await user.save();

@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    isAdmin: {
+    isApprove: {
       type: Boolean,
       required: true,
       default: false,

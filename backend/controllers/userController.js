@@ -15,7 +15,7 @@ const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
+      isApprove: user.isApprove,
       phone: user.phone,
       address: user.address,
       city: user.city,
@@ -84,7 +84,7 @@ const registerUser = asyncHandler(async (req, res) => {
       cnic: user.cnic,
       city: user.city,
       postalCode: user.postalCode,
-      isAdmin: user.isAdmin,
+      isApprove: user.isApprove,
       frontCNIC: user.frontCNIC,
       backCNIC: user.backCNIC,
       pic: user.pic,
@@ -100,7 +100,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const handleApprove = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
   if (user) {
-    user.isAdmin = true;
+    user.isApprove = true;
   }
 
   const updatedUser = await user.save();
@@ -140,7 +140,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       cnic: updatedUser.cnic,
       city: updatedUser.city,
       postalCode: updatedUser.postalCode,
-      isAdmin: updatedUser.isAdmin,
+      isApprove: updatedUser.isApprove,
       amount: updatedUser.amount,
       token: generateToken(updatedUser._id),
     });
