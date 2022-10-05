@@ -18,5 +18,4 @@ router.route("/:id").delete(DeleteAccountHandler);
 router.route("/:id").get(getHandlerById);
 router.route("/handleApprove/:id").post(handleApprove);
 
-
 export default router;

@@ -18,11 +18,11 @@ const accountHandlerSchema = mongoose.Schema(
     },
     frontCNIC: {
       type: String,
-      required: true
+      required: true,
     },
     backCNIC: {
       type: String,
-      required: true
+      required: true,
     },
     isApprove: {
       type: Boolean,
